@@ -1,9 +1,7 @@
-﻿#Change Execution Policy first (command: set-executionpolicy remotesigned)
-
-#Removes the apps specified in the array. Check before using
+﻿#Removes the apps specified in the array. Check before using
 
 
-$AppsList = "Microsoft.messaging", "Microsoft.GetHelp", "Microsoft.GetStarted", "Microsoft.Microsoft3DViewer", "Microsoft.BingNews", "Microsoft.BingWeather", "Microsoft.BingSports", "Microsoft.BingFinance", "Microsoft.MicrosoftOfficeHub", "Microsoft.MicrosoftSolitaireCollection", "Microsoft.Office.OneNote", "Microsoft.OneConnect", "Microsoft.People", "Microsoft.Print3D", "Microsoft.SkypeApp", "Microsoft.Wallet", "microsoft.windowscommunicationsapps", "Microsoft.WindowsFeedbackHub", "Microsoft.WindowsMaps", "Microsoft.WindowsPhone", "Microsoft.Xbox.TCUI", "Microsoft.XboxApp", "Microsoft.XboxGameOverlay", "Microsoft.XboxGamingOverlay", "Microsoft.XboxIdentityProvider", "Microsoft.XboxSpeechToTextOverlay", "Microsoft.ZuneMusic", "Microsoft.ZuneVideo""Microsoft.messaging", "Microsoft.GetHelp", "Microsoft.GetStarted", "Microsoft.Microsoft3DViewer", "Microsoft.BingNews", "Microsoft.BingWeather", "Microsoft.BingSports", "Microsoft.BingFinance", "Microsoft.MicrosoftOfficeHub", "Microsoft.MicrosoftSolitaireCollection", "Microsoft.Office.OneNote", "Microsoft.OneConnect", "Microsoft.People", "Microsoft.Print3D", "Microsoft.SkypeApp", "Microsoft.Wallet", "microsoft.windowscommunicationsapps", "Microsoft.WindowsFeedbackHub", "Microsoft.WindowsMaps", "Microsoft.WindowsPhone", "Microsoft.Xbox.TCUI", "Microsoft.XboxApp", "Microsoft.XboxGameOverlay", "Microsoft.XboxGamingOverlay", "Microsoft.XboxIdentityProvider", "Microsoft.XboxSpeechToTextOverlay", "Microsoft.ZuneMusic", "Microsoft.ZuneVideo" 
+$AppsList = "Microsoft.messaging", "Microsoft.GetHelp", "Microsoft.GetStarted", "Microsoft.Microsoft3DViewer", "Microsoft.BingNews", "Microsoft.BingWeather", "Microsoft.BingSports", "Microsoft.BingFinance", "Microsoft.MicrosoftOfficeHub", "Microsoft.MicrosoftSolitaireCollection", "Microsoft.Office.OneNote", "Microsoft.OneConnect", "Microsoft.People", "Microsoft.Print3D", "Microsoft.SkypeApp", "Microsoft.Wallet", "microsoft.windowscommunicationsapps", "Microsoft.WindowsFeedbackHub", "Microsoft.WindowsMaps", "Microsoft.WindowsPhone", "Microsoft.Xbox.TCUI", "Microsoft.XboxApp", "Microsoft.XboxGameOverlay", "Microsoft.XboxGamingOverlay", "Microsoft.XboxIdentityProvider", "Microsoft.XboxSpeechToTextOverlay", "Microsoft.ZuneMusic", "Microsoft.ZuneVideo""Microsoft.messaging", "Microsoft.GetHelp", "Microsoft.GetStarted", "Microsoft.Microsoft3DViewer", "Microsoft.BingNews", "Microsoft.BingWeather", "Microsoft.BingSports", "Microsoft.BingFinance", "Microsoft.MicrosoftOfficeHub", "Microsoft.MicrosoftSolitaireCollection", "Microsoft.Office.OneNote", "Microsoft.OneConnect", "Microsoft.People", "Microsoft.Print3D", "Microsoft.SkypeApp", "Microsoft.Wallet", "microsoft.windowscommunicationsapps", "Microsoft.WindowsFeedbackHub", "Microsoft.WindowsMaps", "Microsoft.WindowsPhone", "Microsoft.Xbox.TCUI", "Microsoft.XboxApp", "Microsoft.XboxGameOverlay", "Microsoft.XboxGamingOverlay", "Microsoft.XboxIdentityProvider", "Microsoft.XboxSpeechToTextOverlay", "Microsoft.ZuneMusic", "Microsoft.ZuneVideo", "Microsoft.MinecraftUWP", "Facebook.Facebook", "flaregamesGmbH.RoyalRevolt2", "king.com.CandyCrushSodaSaga", "Microsoft.BioEnrollment", "Microsoft.Windows.ShellExperienceHost", "Microsoft.Windows.CloudExperienceHost", "Microsoft.Windows.ContentDeliveryManager", "Microsoft.Windows.ParentalControls", "Microsoft.Windows.SecondaryTileExperience", "Microsoft.Advertising.Xaml", "Microsoft.CommsPhone", "Microsoft.Windows.FeatureOnDemand.InsiderHub", "Microsoft.Appconnector", "Microsoft.Office.Sway", "Microsoft.Office.OneNote", "Windows.ContactSupport", "Microsoft.XboxGameCallableUI", "Microsoft.Windows.PeopleExperienceHost", "38062AvishaiDernis.DiscordUWP", "Facebook.InstagramBeta"
 
 ForEach ($App in $AppsList)
 
@@ -57,14 +55,6 @@ else
 
 }
 
-#Disable Services
-$services = @("XboxGipSvc","xbgm", "XblAuthManager", "XblGameSave","XboxNetApiSvc","WMPNetworkSvc","WerSvc","SysMain","RetailDemo","irmon","Fax", "WdiSystemHost", "WdiServiceHost", "DPS", "BITS", "WpcMonSvc", "wmiApSrv", "WbioSrvc", "WalletService", "TabletInputService", "SystemUsageReportSvc_WILLAMETTE", "SkypeUpdate", "ShareItSvc", "MapsBroker", "lfsvc")
-for($i = 0;$i -lt $services.Length;$i++){
-    Try{
-        Set-Service -Name $services[$i] -StartupType Manual -ErrorAction Continue #Change to SilentlyContinue to hide errors
-        "Changed startup type of " + $services[$i] + " to manual."
-    }
-    Catch{
-        "Error with " + $services[$i]
-    }
-}
+#Uninstall OneDrive
+taskkill /f /im OneDrive.exe
+C:\Windows\SysWOW64\OneDriveSetup.exe /uninstall
